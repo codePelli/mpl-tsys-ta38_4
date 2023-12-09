@@ -5,11 +5,9 @@
       <div class="table-responsive">
         <table class="table">
           <thead>
-            <tr>
               <th>Num tarea</th>
               <th>Tarea</th>
               <th>Descripción</th>
-            </tr>
           </thead>
           <tbody>
             @for (user of users; track $index) {
@@ -18,11 +16,14 @@
               <td>{{ user.tarea }}</td>
               <td>{{ user.descripcion }}</td>
               <td>
-                <button (click)="onDelete(user.codigo)" class="btn btn-danger">
+                <button (click)="onDelete($index)" class="btn btn-danger">
                   Borrar
                 </button>
               </td>
-              <td><input type="checkbox" (change)="selectRow($index)" /></td>
+              <td>
+                <button (click)="onSelect($index)" class="btn btn-primary">
+                Finalizar</button> 
+              </td>
             </tr>
             }
           </tbody>

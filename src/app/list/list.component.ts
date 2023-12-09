@@ -10,47 +10,46 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export class ListComponent implements OnInit{
+export class ListComponent implements OnInit {
+  @Input() users: Array<{ codigo: number; tarea: string; descripcion: string }> = [];
+  @Output() deleteArticle = new EventEmitter<number>();
+  @Output() selectArticle = new EventEmitter<number>();
 
-@Input() users: Array<{ codigo: number; tarea: string; descripcion: string }> = [];
-@Output() deleteArticle = new EventEmitter<number>();
-@Output() selectArticle = new EventEmitter<{ index: number }>();
+  selFormGroup: FormGroup;
 
-selFormGroup: FormGroup;
+  selectedRowIndex: number | undefined;
 
-selectedRowIndex: number | undefined;
+  constructor(private fb: FormBuilder) {
+    this.selFormGroup = this.fb.group({
+      codigo: ['', Validators.required],
+      tarea: ['', Validators.required],
+      descripcion: ['', Validators.required],
+    });
+  }
 
-constructor(private fb: FormBuilder) {
-  this.selFormGroup = this.fb.group({
-    codigo: ['', Validators.required],
-    tarea: ['', Validators.required],
-    descripcion: ['', Validators.required],
-  });
-}
+  onDelete(index: number) {
+    this.deleteArticle.emit(index);
+  }
 
-onDelete(index: number) {
-  console.log(index);
-  this.deleteArticle.emit(index);
-}
+  onSelect(index: number) {
+    this.selectArticle.emit(index);
+    this.selectedRowIndex = index;
+    document.getElementsByTagName('tr');
+    document.getElementsByTagName('tr')[index].classList.add('selected-row');
+    console.log(document.getElementsByTagName('tr')[index]);
+  }
 
-onSelect(index: number) {
-  throw new Error('Method not implemented.');
-}
-
-send(): void {
+  send(): void {
     if (this.selFormGroup.valid) {
-      this.selectArticle.emit({ index: -1 });
       this.selFormGroup.reset();
     }
-}
+  }
 
-ngOnInit(): void {
-  console.log(this.selFormGroup);
-}
+  ngOnInit(): void {
+    console.log(this.selFormGroup);
+  }
 
-selectRow(index: number): void {
-  this.selectedRowIndex = index;
-}
-
-
+  selectRow(index: number): void {
+    this.selectedRowIndex = index;
+  }
 }

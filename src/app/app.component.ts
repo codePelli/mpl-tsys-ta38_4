@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
 userList: Array<{ codigo: number; tarea: string, descripcion: string }> = [];
 users: any;
+selectRowIndex: number | undefined;
 
   onSaveUser(user: any) {
     this.userList.push(user);
@@ -23,11 +24,14 @@ users: any;
 
   onDeleteArticle(index: number): void {
     console.log('Deleting item at index:', index);
-    this.userList = this.userList.splice(index);
-    console.log(this.userList)
+    this.userList.splice(index, 1);
+    console.log(index);
+    console.log(this.userList);
   }
 
   onSelectArticle(index: number): void {
+    console.log(this.onSelectArticle, index);
+    this.selectRowIndex = index;
   }
 
   ngOnInit(): void {}

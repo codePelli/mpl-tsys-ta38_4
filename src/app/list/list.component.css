@@ -25,19 +25,10 @@ th{
     color: #fff;
 }
 
-tr:nth-child(even){
-    background-color: #f2f2f2;
-}
-
-button{
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
 input[type="checkbox"] {
     margin-left: 5px;
 }
+
+.selected-row {
+    background-color: lightblue;
+}  
